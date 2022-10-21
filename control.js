@@ -6,45 +6,45 @@ dominoes = [
     {d3: 24},
     {d4: 25},
     {d5: 26},
-    {d6: 27},
-   {d7: 32},
-    {d8: 33},
-    {d9: 34},
-    {d10: 35},
-    {d11: 36},
-    {d12:37},
-    {d13: 42},
-   {d14: 43},
-    {d15:44},
-    {d16: 45},
-    {d17: 46},
-    {d18: 47},
-    {d19: 52},
-    {d20: 53},
-    {d21: 54},
-    {d22: 55}, 
-    {d23: 56},
-    {d24: 57},
-    {d25: 62},
-    {d26: 63},
-    {d27: 64},
-    {d28: 65},
-    {d29: 66},
-    {d30: 67},
-    {d31: 72},
-    {d32: 73},
-    {d33: 74},
-    {d34: 75},
-    {d35: 76},
-    {d36:77}
+   {d6: 32},
+    {d7: 33},
+    {d8: 34},
+    {d9: 35},
+    {d10: 36},
+   {d11: 43},
+    {d12:44},
+    {d13: 45},
+    {d14: 46},
+    {d15: 53},
+    {d16: 54},
+    {d17: 55}, 
+    {d18: 56},
+    {d19: 62},
+    {d20: 63},
+    {d21: 64},
+    {d22: 65},
+    {d23: 66},
+
     ]
     let letters = 
     ["a","a","a","a","a","a","a","a","a","b","b","c","c","d","d","d","d","e","e","e","e","e","e","e","e","e","e","e","e","f","f","g","g","g","h","h","i","i","i","i","i","i","i","i","i","j","k","l","l","l","l",
     "m","m","n","n","n","n","n","n","o","o","o","o","o","o","o","o","p","p","q","r","r","r","r","r","r","s","s","s","s","t","t","t","t","t","t","u","u","u","u","v","v","w","w","x","y","y","z"];
+    
+    let gridValues = [
+      {tile1:0}, {tile2:0}, {tile3:0}, {tile4:0}, {tile5:0}, {tile6:0}, {tile7:0}, {tile8:0}, {tile9:0}, {tile10:0}, {tile11:0}, {tile12:0}
+    ]
+
 
     let dominoHand = [];
     let domHandValues=[];
+    let domHandKeys = [];
+    let chosenKey = [];
+    let domKey = "";
     let domHandFirst = [];
+    let doms = [".dom1", ".dom2", ".dom3", ".dom4"];
+    let domLeft = "";
+    let domRight = "";
+    let selectedDomino = false;
     let letterHand = [];
     let firstWord = ""; 
     let secondWord = ""; 
@@ -58,6 +58,21 @@ dominoes = [
     let firstProg = false; 
     let lettersUsed1 = [];
     let lettersUsed2 = [];
+    let pngName = "";
+    let chosenName = "";
+    let chosenValue = 0;
+    let domindex = 0;
+    //first & second digits of domino
+    let order = 0;
+    let chosen1=0;
+ 
+  let chosen2 = 0;
+    let chosenNums = [];
+    let gridTiles = [".domGrid1", ".domGrid2", ".domGrid3", ".domGrid4", ".domGrid5", ".domGrid6", ".domGrid7", ".domGrid8", ".domGrid9", ".domGrid10", ".domGrid11", ".domGrid12"]
+
+    let firstGo=true;
+    let tilePlaced = false;
+
     
 
 //Initial domino allocation 5
@@ -72,22 +87,129 @@ function randomNumberDom() {
     console.log("generation running");
  
     let rand =randomNumberDom();
-    
-    dominoHand.push(dominoes[randomNumberDom()]);
+    ranDomino = dominoes[randomNumberDom()]
+    dominoHand.push(ranDomino);
     dominoes.splice(rand,1);
+    console.log("dominoes.length", dominoes.length)
     console.log("dominoesrandomnumber", dominoes[rand]);
     console.log("dominoHand", dominoHand)
   }
- 
-  for(let i= 0; i<dominoHand.length; i++){
-    domHandValues.push(...Object.values(dominoHand[i]));
-  }
+
+
+
+  //displayDominoes
+  for(let i = 0; i<dominoHand.length; i++){
+    selectedDomino = false;
+    domHandKeys.push(...Object.keys(dominoHand[i]));
+    //console.log("domHandKeys after push", domHandKeys);
+    domHandKeys.map((i)=>i.key);
+
+    let pngName =
+ "<img src = Images/" +
+    domHandKeys[i] +
+    '.png  style="width:30px;height:60px;">';
+    
+   document.querySelector(doms[i]).innerHTML = pngName;
+   console.log("doms[i].innerHTML before queryselector", doms[i].value);
+ // pngNames.push(pngName);
+    console.log("pngName", pngName);
+    console.log("chosenName", chosenName);
+
+}
+    //user selects domino
+
+
+
+
+//get selectedDominoValue/
+let selDomValue = function(){
+for(let j = 0; j<dominoHand.length; j++){ 
+
+  if(selectedDomino==false){
+    document.querySelector(doms[j]).addEventListener("click", function(){
+      domHandValues.push(...Object.values(dominoHand[j]));
+      chosenKey.push(...Object.keys(dominoHand[j]));
+      console.log("chosenKey", chosenKey);
+      
   
-  console.log("value of dominoHand", Object.values(dominoHand[0]));
-  dominoHand.map((i)=>i.value);
-  console.log("domHandValues", domHandValues);
-  domHandFirst.concat.apply = [...domHandValues];
-  console.log("domHandFirst", domHandFirst.join(","));
+      console.log("value of dominoHand", Object.values(dominoHand[0]));
+      ///let jvalue = dominoHand.map((j)=>j.value);
+      //console.log("jvalue", jvalue);
+      console.log("domHandValues", domHandValues);
+      console.log("domHandVlaues tostraing", toString(domHandValues.join(",")));
+      domKey = String(chosenKey);
+      chosen1 = String(domHandValues[0])[0];
+      chosen2 = String(domHandValues[0])[1];
+      //domHandFirst.concat.apply = [...domHandValues];
+      console.log("chosen1, chosen2", chosen1, chosen2);
+      let chosenValue = String(chosen1+chosen2);
+      console.log("domKey", domKey);
+      chosenName =  
+      "<img src = Images/" +
+       domHandKeys[j] +
+      '.png style="width:60px;height:120px;">';
+      document.querySelector(".chosenDom").innerHTML = chosenName;
+      document.querySelector(doms[j]).innerHTML = "";
+      doms.splice(j,1);
+      chosenValue = Object.values(dominoHand[j]);
+      document.querySelector(".word1Instruct").innerHTML = `Make a word with ${chosen1} letters`
+      document.querySelector(".word2Instruct").innerHTML = `Make a word with ${chosen2} letters`
+      //function printChosenOne(){
+      //  return chosen1};
+    })    
+  }
+  }
+}
+selDomValue();
+//selectDomino();
+console.log("dominoHand outside function", dominoHand);
+console.log("dominovalues outside function, chosenvalue",  chosenNums[0], chosenValue);
+console.log("chosen1 outside function", chosen1);
+//console.log("printChosenOne", printChosenOne());
+console.log("domHandValuesnew", domHandValues)
+console.log("domHandValuestostring"), String(domHandValues[0]);
+
+  /*
+  for(let j = 0; j<dominoHand.length; j++){
+  if(selectedDomino==false){
+    if(selectedDomino==false){
+      document.querySelector(doms[j]).addEventListener("click", function(){
+    //May or may not need below
+
+
+   // domHandValues.push(...Object.values(dominoHand[j]))
+   console.log("domHandValues in function", domHandValues);
+    console.log("order", order)
+
+    
+    console.log("selecteddom false", selectedDomino);
+  document.querySelector(doms[j]).addEventListener("click", function(){
+    console.log("j", j)*/
+    /*
+    chosenName =  
+    "<img src = Images/" +
+     domHandKeys[j] +
+    '.png style="width:60px;height:120px;">';
+    chosenValue = Object.values(dominoHand[j]);
+  
+    console.log("chosenValue afterdefined", chosenValue)
+   */
+
+
+    
+   
+
+    //document.querySelector(doms[i]).innerHTML = pngName;
+    console.log("dominoHand after splice", dominoHand);
+    console.log("chosenvalue after splice", dominoHand);
+    console.log("selecteddom", selectedDomino);
+    
+
+
+
+console.log("selecteddom after function", selectedDomino);
+selectedDomino=true;
+
 
   //generate first letter hand 
   function randomNumberLet() {
@@ -205,12 +327,23 @@ xhr.addEventListener("readystatechange", function () {
       doc = parser.parseFromString(this.responseText, 'text/xml'); 
   
     doc = parser.parseFromString(this.responseText, 'text/xml'); 
-    if(this.responseText.length !==14){
+    if(this.responseText.length !==14&&document.querySelector(".wordText1").innerHTML.length==chosen1){
       firstWordValid =true; 
       document.querySelector(".word1Instruct").innerHTML = "Valid Word"
       document.querySelector(".buttons1").style["display"] = "none";
       console.log("firstWordValid", firstWordValid, wordText1)
-    }else{
+    }else if(document.querySelector(".wordText1").innerHTML.length!==Number(chosen1)){
+      
+      console.log("wordtext1length, chosen1.length", document.querySelector(".wordText1").innerHTML.length, chosen1);
+      document.querySelector(".word1Instruct").innerHTML = `The word doesn't have the right amount of letters. It needs ${chosen1} letters. Try Again.`
+      document.querySelector(".wordText1").innerHTML = "";
+ lettersUsed1.forEach((item)=>document.querySelector(`${item}`).style["display"] = "inline-block");
+ wordText1 = "";
+ lettersUsed1=[];
+ wordNumber = 1;
+ document.querySelector(".word2Instruct").style["display"] = "none";
+    }
+    else{
       firstWordValid  = false;
       document.querySelector(".word1Instruct").innerHTML = "Not a Valid Word. Try Again."
       document.querySelector(".wordText1").innerHTML = "";
@@ -265,13 +398,29 @@ xhr2.addEventListener("readystatechange", function () {
   
     doc = parser.parseFromString(this.responseText, 'text/xml'); 
     console.log("this.responseText", this.responseText);
-    if(this.responseText.length !==14){
+    if(this.responseText.length !==14 &&document.querySelector(".wordText2").innerHTML.length==chosen2){
       secondWordValid =true; 
       document.querySelector(".word2Instruct").innerHTML = "Congratulations, you completed a tile!";
-  
+      document.querySelector(".presentDom").innerHTML = "<strong>Click on a space in the domino grid on the top to place your tile. Remember: dominoes can only be placed next to each other if they have the same number of dots on their connecting sides.</strong>"
       document.querySelector(".buttons2").style["display"] = "none";
-      console.log("secondWordValid", secondWordValid, secondWord)
-    }else{
+      console.log("secondWordValid", secondWordValid, secondWord);
+      selectDomGrid();
+      //flag to ensure domino can't be placed twice
+      tilePlaced = false;
+    }else if(document.querySelector(".wordText2").innerHTML.length!==Number(chosen2)){
+      
+      console.log("wordtext1length, chosen1.length", document.querySelector(".wordText2").innerHTML.length, chosen2);
+      document.querySelector(".word2Instruct").innerHTML = `The word doesn't have the right amount of letters. It needs ${chosen2} letters. Try Again.`
+      document.querySelector(".word2Instruct").style["display"] = "inline-block";
+      document.querySelector(".wordText2").innerHTML = "";
+ lettersUsed2.forEach((item)=>document.querySelector(`${item}`).style["display"] = "inline-block");
+ wordText1 = "";
+ lettersUsed2=[];
+ wordNumber = 2;
+ }
+    
+    
+    else{
       secondWordValid  = false;
       document.querySelector(".word2Instruct").innerHTML = "Not a Valid Word. Try Again."
       document.querySelector(".wordText2").innerHTML = "";
@@ -303,6 +452,39 @@ xhr2.setRequestHeader("X-RapidAPI-Host", "lingua-robot.p.rapidapi.com");
 
 xhr2.send(data2);
 })
+
+function selectDomGrid(){
+  if(tilePlaced ==false){
+  for(let i=0; i<gridTiles.length; i++){
+    document.querySelector(gridTiles[i]).addEventListener("click", function(){
+      console.log("domTile selected");
+      if(i>=4 && i<=7){
+      pngName =
+      "<img src = Images/" +
+         domKey +
+         '.png  style="width:30px;height:60px;">'}else
+         {console.log("pngName with rotation");
+      pngName =
+          "<img src = Images/" +
+             domKey +
+             '.png  style="width:30px;height:60px;transform:rotate(-90deg);margin-top:-15px;">'
+
+         }
+      document.querySelector(gridTiles[i]).innerHTML = pngName;
+      let chosenString = String(chosen1)+String(chosen2);
+      console.log("chosenString", chosenString);
+      gridValueTemp = gridValues[i];
+   gridValues.gridValueTemp = chosenString;
+   console.log("gridValues.gridValueTemp", gridValues.gridValueTemp);
+   console.log("gridvaluesi", gridValues[i]);
+   console.log("object.values(gridtiles", Object.values(gridValues[i]));
+   tilePlaced = true;
+
+    })
+  }
+  
+}
+}
 
 
 //submitText
