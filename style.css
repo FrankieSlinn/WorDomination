@@ -105,6 +105,11 @@ button:active {
   border-color: #2e7b36;
   cursor: pointer;
 }
+.presentLet{
+  font-weight: 700;
+  margin-top: 1rem;
+  margin-bottom: -2.5rem;
+}
 .gridContainer{
   justify-content: center;
   text-align: center;
@@ -140,41 +145,49 @@ color: #333;
   grid-column: 1/3;
   grid-row: 1;
 }
+.domGrid2{
+  grid-column:3;
+  grid-row: 1;
+}
+.domGrid3{
+  grid-column:4;
+  grid-row: 1;
+}
 .domGrid4{
   grid-column:5/-1;
   grid-row: 1;
 }
 .domGrid5{
-  grid-column:1;
+  grid-column:6;
   grid-row: 2;
 }
 .domGrid6{
   grid-column: 6;
-  grid-row: 2;
-}
-.domGrid7{
-  grid-column: 1;
   grid-row: 3;
 }
-.domGrid8{
-  grid-column:6;
-  grid-row:3
-}
-.domGrid9{
-  grid-column:1/3;
+.domGrid7{
+  grid-column: 5/-1;
   grid-row: 4;
 }
-.domGrid10{
+.domGrid8{
+  grid-column:4;
+  grid-row:4;
+}
+.domGrid9{
   grid-column:3;
   grid-row: 4;
 }
-.domGrid11{
-  grid-column:4;
+.domGrid10{
+  grid-column:1/3;
   grid-row: 4;
 }
+.domGrid11{
+  grid-column:1;
+  grid-row: 3;
+}
 .domGrid12{
-  grid-column:5/-1;
-  grid-row: 4;
+  grid-column:1;
+  grid-row: 2;
 }
 
 .chosenDomContainer{
@@ -286,6 +299,13 @@ margin-bottom: -5rem;
   margin-bottom: 2rem;
   border: #333 solid 2px; 
   width: 2%
+}
+
+.giveUp{
+  font-weight: 700;
+  background-color: #f26419;
+  color: #000;
+  border-color: #f26419;
 }
 
   .coffee{    
